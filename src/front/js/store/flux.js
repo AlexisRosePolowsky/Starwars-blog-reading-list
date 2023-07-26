@@ -3,10 +3,21 @@ const getState = ({ getStore, getActions, setStore }) => {
 		store: {
 			characters: [],
 			planets: [],
-			starships: []
+			starships: [],
+			favorites: []
 
 		},
 		actions: {
+			addfavorites: (name) =>{
+				let favorites= getStore().favorites
+				favorites.push(name)
+				setStore({favorites:favorites})
+			},
+			deletefavorites: (index) =>{
+				let favorites= getStore().favorites
+				let filteredFavorites= favorites.filter((item,idx)=>idx != index)
+				setStore({favorites:filteredFavorites})
+			},
 			fetchCharacters: () =>{
 				fetch("https://swapi.dev/api/people")
 				.then((response)=> response.json())
